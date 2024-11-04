@@ -38,15 +38,12 @@ def check_generator(p):
         if remainders == set(range(1, p)):
             return g
 
-# Function to generate a large prime number
-def generate_large_prime():
-    min_val = 400
-    max_val = 500
-
-    while True:
-        candidate = random.randint(min_val, max_val)
-        if sympy.isprime(candidate):
-            return candidate
+# Function to generate random number instead of a large prime number
+# def generate_random_instead_prime():
+#     min_val = 400
+#     max_val = 500
+    
+#     return random.randint(min_val, max_val)
 
 ### Diffie-Hellman Key Exchange for Bob
 # Function to generate a Diffie-Hellman key pair
@@ -78,8 +75,9 @@ def aes_decrypt(shared_secret, encrypted_message):
 
 ### Handler for Bob
 # Handler function for Bob
+# non prime number, generator
 def handler(sock):
-    PRIME = generate_large_prime()  # 4-byte prime number
+    PRIME = 400  # 4-byte prime number
     generator = check_generator(PRIME)  # Generator
     logging.info('Generator: {}'.format(generator))
 
