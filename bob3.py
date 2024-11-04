@@ -47,7 +47,7 @@ def generate_large_prime():
 
     while True:
         candidate = random.randint(min_val, max_val)
-        if sympy.is_special(candidate):
+        if is_special(candidate):
             return candidate
 
 ### Diffie-Hellman Key Exchange for Bob
