@@ -10,9 +10,7 @@ import base64
 import binascii
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad, pad
-import sympy  # Import sympy to check if a number is prime
 import math
-import sys
 
 ### Prime and Generator Utilities for Bob
 # Function to check if a number is prime
@@ -163,7 +161,6 @@ def handler(sock):
             #     response_message = json.dumps({"opcode": 3, "type": "AES", "encryption": encrypted_response})
             #     sock.sendall(response_message.encode())
             #     logging.info("You quit the chat")
-            #     sys.exit()
             #     break
             # else: 
             response_message = json.dumps({"opcode": 2, "type": "AES", "encryption": encrypted_response})
@@ -173,7 +170,6 @@ def handler(sock):
         
         # elif opcode == 3: 
         #     logging.info("Alice quit the chat")
-        #     sys.exit()
         #     break
 
 ### Run Function for Bob
@@ -209,3 +205,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
