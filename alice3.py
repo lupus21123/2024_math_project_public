@@ -3,15 +3,11 @@ import argparse
 import logging
 import base64
 import binascii
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import unpad
-
 import json
 import random
 import hashlib
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
-import sympy  # Import sympy to check if a number is prime
 import math
 
 ### AES Encryption and Decryption for Alice
@@ -46,9 +42,6 @@ def aes_decrypt(shared_secret, encrypted_message):
     decrypted = unpad(cipher.decrypt(encrypted_message), AES.block_size)
     
     return decrypted.decode()
-
-
-
 
 ### Run Function for Alice
 # Run function for Alice

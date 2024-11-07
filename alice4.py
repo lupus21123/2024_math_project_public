@@ -55,6 +55,10 @@ def run(addr, port):
     alice = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     alice.connect((addr, port))
     logging.info("Alice connected to Bob at {}:{}".format(addr, port))
+    
+    request = json.dumps({"opcode":0, "type": "DH"})
+    logging.info("Alice sends opcode 0: {}".format(request))
+    alice.sendall(request.encode())
 
     # Receive p and g from Bob
     response = alice.recv(1024).decode()
@@ -62,9 +66,9 @@ def run(addr, port):
     response_json = json.loads(response)
     opcode = response_json.get("opcode")
 
-    if opcode == 0:  # Received p and g from Bob
-        received_p = response_json.get("p")
-        received_g = response_json.get("g")
+    if opcode == 1:  # Received p and g from Bob
+        received_p = response_json.get("parameter", {}).get("p")
+        received_g = response_json.get("parameter", {}).get("g")
 
         # Step 1: Validate if p is a prime number
         if not is_prime(received_p):
