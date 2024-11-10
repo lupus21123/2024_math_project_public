@@ -38,6 +38,14 @@ def check_generator(p):
         if remainders == set(range(1, p)):
             return g
 
+# Function to check a generator for prime p
+def is_generator(a, p):
+    remainders = set()
+    for k in range(1, p):
+        remainder = pow(a, k, p)
+        remainders.add(remainder)
+    return len(remainders) == p - 1
+
 # Function to generate a large prime number
 def generate_large_prime():
     min_val = 400
@@ -47,6 +55,14 @@ def generate_large_prime():
         candidate = random.randint(min_val, max_val)
         if is_special(candidate):
             return candidate
+
+# Function to generate a non-generator for prime
+def generate_non_generator(prime):
+    generators = [num for num in range(1, prime+1) if is_generator(num, prime)]
+    if generators:
+        return random.choice(generators)
+    else:
+        return None
 
 ### Diffie-Hellman Key Exchange for Bob
 # Function to generate a Diffie-Hellman key pair
@@ -106,8 +122,8 @@ def handler(sock):
     global private_key
     global public_key
     if opcode == 0: 
-        PRIME = 401  # 4-byte prime number
-        generator = 5 #check_generator(PRIME)  # Generator
+        PRIME = generate_large_prime()  # 4-byte prime number
+        generator = generate_non_generator(PRIME)  # Generator
         #logging.debug('Generator: {}'.format(generator))
 
         private_key, public_key = generate_dh_keypair(PRIME, generator) # b, g^b mod p
