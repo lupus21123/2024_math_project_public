@@ -48,6 +48,14 @@ def generate_large_prime():
         if is_special(candidate):
             return candidate
 
+# Function to generate non prime number
+def generate_non_prime(start, end):
+    primes = [num for num in range(start, end+1) if is_prime(num)]
+    if primes:
+        return random.choice(primes)
+    else:
+        return None
+
 ### Diffie-Hellman Key Exchange for Bob
 # Function to generate a Diffie-Hellman key pair
 def generate_dh_keypair(PRIME, generator):
@@ -106,7 +114,7 @@ def handler(sock):
     global private_key
     global public_key
     if opcode == 0: 
-        PRIME = 400  # 4-byte prime number
+        PRIME = generate_non_prime(400, 500)  # 4-byte non-prime number
         generator = 19#check_generator(PRIME)  # Generator
         #logging.debug('Generator: {}'.format(generator))
 
