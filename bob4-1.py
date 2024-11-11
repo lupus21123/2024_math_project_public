@@ -115,7 +115,7 @@ def handler(sock):
     global public_key
     if opcode == 0: 
         PRIME = generate_non_prime(400, 500)  # 4-byte non-prime number
-        generator = 19#check_generator(PRIME)  # Generator
+        generator = -1 #check_generator(PRIME)  # Generator
         #logging.debug('Generator: {}'.format(generator))
 
         private_key, public_key = generate_dh_keypair(PRIME, generator) # b, g^b mod p
