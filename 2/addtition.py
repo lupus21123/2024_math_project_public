@@ -1,10 +1,7 @@
 import pandas as pd
 
 def calculate_correlations(csv_file, target_column="label"):
-    # CSV 파일 읽기
     df = pd.read_csv(csv_file)
-    
-    # 날짜 열 제거
     if "date" in df.columns:
         df = df.drop(columns=["date"])
     df.columns = df.columns.str.strip() 
