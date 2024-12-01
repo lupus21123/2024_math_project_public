@@ -91,23 +91,20 @@ def load_raw_data(fname):
     instances = []
     labels = []
     with open(fname, "r") as f:
-        f.readline()  # 첫 줄 헤더 스킵
+        f.readline() 
         for line in f:
             try:
-                tmp = line.strip().split(",")  # 데이터는 쉼표로 구분
-                # 필요한 열만 추출: 평균 기온(1), 최고 습도(5), 전력량(7), 레이블(8)
+                tmp = line.strip().split(",")
                 avg_temperature = float(tmp[1].strip())
                 max_temperature = float(tmp[2].strip())
                 min_temperature = float(tmp[3].strip())
                 power = float(tmp[7].strip())
                 label = int(tmp[8].strip())
-                
-                # 인스턴스에는 필요한 열만 포함
                 instances.append([avg_temperature, max_temperature, min_temperature, power])
                 labels.append(label)
             except ValueError as e:
                 logging.error(f"Error parsing line: {line.strip()} ({e})")
-                continue  # 잘못된 데이터를 무시
+                continue
     return instances, labels
 
 
