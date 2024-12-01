@@ -25,14 +25,13 @@ def calculate_mean_std(data):
     std_dev = math.sqrt(variance)
     return mean, std_dev
 
-# Gaussian 확률 밀도 함수
+# Gaussian 
 def gaussian_probability(x, mean, std_dev):
     if std_dev == 0:
         return 1 if x == mean else 0
     exponent = math.exp(-((x - mean) ** 2 / (2 * std_dev ** 2)))
     return (1 / (math.sqrt(2 * math.pi) * std_dev)) * exponent
 
-# 클래스 확률 계산
 def calculate_class_probabilities(summaries, instance):
     total_rows = sum(summaries[label][0][2] for label in summaries)
     probabilities = {}
@@ -44,7 +43,6 @@ def calculate_class_probabilities(summaries, instance):
             probabilities[class_value] *= gaussian_probability(instance[i], mean, std_dev)
     return probabilities
 
-# predict 함수 구현
 def predict(instance, parameters):
     probabilities = calculate_class_probabilities(parameters, instance)
     return max(probabilities, key=probabilities.get)
@@ -92,17 +90,15 @@ def load_raw_data(fname):
     instances = []
     labels = []
     with open(fname, "r") as f:
-        f.readline()  # 첫 줄 헤더 스킵
+        f.readline() #skip first line
         for line in f:
             try:
-                tmp = line.strip().split(",")  # 데이터는 쉼표로 구분
-                # 필요한 열만 추출: 평균 기온(1), 최고 습도(5), 전력량(7), 레이블(8)
+                tmp = line.strip().split(",") 
                 avg_temperature = float(tmp[1].strip())
                 max_humidity = int(tmp[5].strip())
                 power = float(tmp[7].strip())
                 label = int(tmp[8].strip())
-                
-                # 인스턴스에는 필요한 열만 포함
+            
                 instances.append([avg_temperature, max_humidity, power])
                 labels.append(label)
             except ValueError as e:
