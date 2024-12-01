@@ -25,14 +25,13 @@ def calculate_mean_std(data):
     std_dev = math.sqrt(variance)
     return mean, std_dev
 
-# Gaussian 확률 밀도 함수
+# Gaussian
 def gaussian_probability(x, mean, std_dev):
     if std_dev == 0:
         return 1 if x == mean else 0
     exponent = math.exp(-((x - mean) ** 2 / (2 * std_dev ** 2)))
     return (1 / (math.sqrt(2 * math.pi) * std_dev)) * exponent
 
-# 클래스 확률 계산
 def calculate_class_probabilities(summaries, instance):
     total_rows = sum(summaries[label][0][2] for label in summaries)
     probabilities = {}
